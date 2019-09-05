@@ -1,0 +1,119 @@
+﻿<Window x:Class="SHC.Views.Database.SectorsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:SHC.Views.Database"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="Sectores"
+        Width="450"
+        Height="450"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40" />
+			<RowDefinition Height="40" />
+			<RowDefinition Height="40" />
+			<RowDefinition Height="40" />
+			<RowDefinition Height="10" />
+			<RowDefinition Height="40" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="4*" />
+			<ColumnDefinition Width="6*" />
+		</Grid.ColumnDefinitions>
+
+		<Label Grid.Row="0"
+		       Grid.Column="0"
+		       Grid.ColumnSpan="2"
+		       Content="Nuevo sector"
+		       Foreground="RoyalBlue"
+		       Style="{StaticResource FormLabelStyle}" />
+
+		<Label Grid.Row="1"
+		       Grid.Column="0"
+		       Content="Nombre"
+		       Style="{StaticResource FormLabelStyle}" />
+
+		<TextBox x:Name="TextBoxSectorName"
+		         Grid.Row="1"
+		         Grid.Column="1"
+		         Width="254"
+		         Style="{StaticResource FormTextBoxStyle}" />
+
+		<Label Grid.Row="2"
+		       Grid.Column="0"
+		       Content="Comunidad"
+		       Style="{StaticResource FormLabelStyle}" />
+
+		<ComboBox x:Name="ComboBoxCommunities"
+		          Grid.Row="2"
+		          Grid.Column="1"
+		          Width="254"
+		          ItemsSource="{Binding Communities}"
+		          Style="{StaticResource FormComboBoxStyle}" />
+
+		<Button x:Name="ButtonAddSector"
+		        Grid.Row="3"
+		        Grid.Column="0"
+		        Grid.ColumnSpan="2"
+		        HorizontalAlignment="Center"
+		        Click="ButtonAddSector_Click"
+		        Content="Agregar"
+		        IsEnabled="{Binding AreButtonsEnabled}"
+		        Style="{StaticResource SaveEditButtonStyle}" />
+
+		<Label Grid.Row="5"
+		       Grid.Column="0"
+		       Grid.ColumnSpan="2"
+		       Content="Sectores registrados"
+		       Foreground="RoyalBlue"
+		       Style="{StaticResource FormLabelStyle}" />
+
+		<ListView Grid.Row="6"
+		          Grid.Column="0"
+		          Grid.ColumnSpan="2"
+		          ItemsSource="{Binding Sectors}">
+			<ListView.ItemContainerStyle>
+				<Style TargetType="ListViewItem">
+					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+				</Style>
+			</ListView.ItemContainerStyle>
+
+			<ListView.View>
+				<GridView AllowsColumnReorder="False">
+					<GridViewColumn Width="200" Header="Nombre">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Name}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="124" Header="Comunidad">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Community.Name}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="100" Header="Eliminar">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Button Click="ButtonDeleteSector_Click"
+								        Content="Eliminar"
+								        IsEnabled="{Binding AreButtonsEnabled}"
+								        Style="{StaticResource ListButtonStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+				</GridView>
+			</ListView.View>
+		</ListView>
+	</Grid>
+</Window>

@@ -1,0 +1,440 @@
+﻿<Page x:Class="SHC.Views.AppointmentPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:SHC.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Title="Nueva cita"
+      d:DesignHeight="632"
+      d:DesignWidth="1360"
+      mc:Ignorable="d">
+
+	<Grid Margin="10">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="500" />
+			<ColumnDefinition Width="10" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+
+		<Rectangle Grid.Column="0" Fill="White" />
+
+		<StackPanel Grid.Column="0" Margin="10">
+
+			<Label Content="Médico"
+			       Foreground="RoyalBlue"
+			       Style="{StaticResource FormLabelStyle}" />
+
+			<ComboBox x:Name="ComboBoxDoctors"
+			          IsEnabled="{Binding IsEditEnabled}"
+			          ItemsSource="{Binding Doctors}"
+			          SelectedItem="{Binding Appointment.Doctor}"
+			          SelectionChanged="ComboBoxDoctors_SelectionChanged"
+			          Style="{StaticResource FormComboBoxStyle}" />
+
+			<Rectangle Height="5"
+			           Margin="0,10"
+			           HorizontalAlignment="Stretch"
+			           Fill="LightGray" />
+
+			<Label Content="Paciente"
+			       Foreground="RoyalBlue"
+			       Style="{StaticResource FormLabelStyle}" />
+
+			<StackPanel Orientation="Horizontal">
+				<CheckBox x:Name="CheckBoxRepresentant"
+				          VerticalAlignment="Center"
+				          IsEnabled="{Binding IsEditEnabled}" />
+
+				<Label Content="El paciente no tiene cédula. Ésta cédula es de su representante." />
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal">
+				<TextBox x:Name="TextBoxPatiendIdCard"
+				         IsEnabled="{Binding IsEditEnabled}"
+				         Style="{StaticResource FormTextBoxStyle}" />
+
+				<Button x:Name="ButtonSearchPatient"
+				        Click="ButtonSearchPatient_Click"
+				        Content="Buscar"
+				        IsEnabled="{Binding IsEditEnabled}"
+				        Style="{StaticResource SaveEditButtonStyle}" />
+			</StackPanel>
+
+			<Grid Margin="0,10">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="4*" />
+					<ColumnDefinition Width="6*" />
+				</Grid.ColumnDefinitions>
+
+				<Label Grid.Row="0"
+				       Grid.Column="0"
+				       Content="Nombre completo:"
+				       Style="{StaticResource FormLabelStyle}" />
+
+				<TextBlock Grid.Row="0"
+				           Grid.Column="1"
+				           FontWeight="Normal"
+				           Style="{StaticResource FormTextBlockStyle}"
+				           Text="{Binding Patient.Fullname}"
+				           Visibility="{Binding PatientInformationVisiblity}" />
+
+				<Label Grid.Row="1"
+				       Grid.Column="0"
+				       Content="Fecha de nacimiento:"
+				       Style="{StaticResource FormLabelStyle}" />
+
+				<TextBlock Grid.Row="1"
+				           Grid.Column="1"
+				           Width="85"
+				           FontWeight="Normal"
+				           Style="{StaticResource FormTextBlockStyle}"
+				           Text="{Binding Patient.BirthDate}"
+				           Visibility="{Binding PatientInformationVisiblity}" />
+
+				<Label Grid.Row="2"
+				       Grid.Column="0"
+				       Content="Sexo:"
+				       Style="{StaticResource FormLabelStyle}" />
+
+				<TextBlock Grid.Row="2"
+				           Grid.Column="1"
+				           FontWeight="Normal"
+				           Style="{StaticResource FormTextBlockStyle}"
+				           Text="{Binding Patient.GenderToString}"
+				           Visibility="{Binding PatientInformationVisiblity}" />
+
+				<Label Grid.Row="3"
+				       Grid.Column="0"
+				       Content="Dirección:"
+				       Style="{StaticResource FormLabelStyle}" />
+
+				<TextBlock Grid.Row="3"
+				           Grid.Column="1"
+				           FontWeight="Normal"
+				           Style="{StaticResource FormTextBlockStyle}"
+				           Text="{Binding Patient.Address}"
+				           Visibility="{Binding PatientInformationVisiblity}" />
+
+				<Label Grid.Row="4"
+				       Grid.Column="0"
+				       Content="Escolaridad:"
+				       Style="{StaticResource FormLabelStyle}" />
+
+				<TextBlock Grid.Row="4"
+				           Grid.Column="1"
+				           FontWeight="Normal"
+				           Style="{StaticResource FormTextBlockStyle}"
+				           Text="{Binding Patient.EducationLevel}"
+				           Visibility="{Binding PatientInformationVisiblity}" />
+			</Grid>
+
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="40" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<Label Grid.Row="0"
+				       Grid.Column="0"
+				       Content="Discapacidades"
+				       Style="{StaticResource FormLabelStyle}" />
+
+				<ListView Grid.Row="1"
+				          Grid.Column="0"
+				          ItemsSource="{Binding PatientDisabilities}">
+					<ListView.ItemContainerStyle>
+						<Style TargetType="ListViewItem">
+							<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+						</Style>
+					</ListView.ItemContainerStyle>
+
+					<ListView.View>
+						<GridView AllowsColumnReorder="False">
+							<GridViewColumn Width="240" Header="Nombre">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<Label Content="{Binding Name}" Style="{StaticResource ListLabelStyle}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+						</GridView>
+					</ListView.View>
+				</ListView>
+
+				<Label Grid.Row="0"
+				       Grid.Column="1"
+				       Content="Antecedentes"
+				       Style="{StaticResource FormLabelStyle}" />
+
+				<ListView Grid.Row="1"
+				          Grid.Column="1"
+				          ItemsSource="{Binding PatientAntecedents}">
+					<ListView.ItemContainerStyle>
+						<Style TargetType="ListViewItem">
+							<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+						</Style>
+					</ListView.ItemContainerStyle>
+
+					<ListView.View>
+						<GridView AllowsColumnReorder="False">
+							<GridViewColumn Width="150" Header="Nombre">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<Label Content="{Binding Name}" Style="{StaticResource ListLabelStyle}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+
+							<GridViewColumn Width="90" Header="Tipo">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<Label Content="{Binding AntecedentTypeToString}" Style="{StaticResource ListLabelStyle}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+						</GridView>
+					</ListView.View>
+				</ListView>
+			</Grid>
+		</StackPanel>
+
+		<Rectangle Grid.Row="1"
+		           Grid.Column="3"
+		           Width="400"
+		           Height="400"
+		           Margin="20,20,0,0"
+		           HorizontalAlignment="Center"
+		           VerticalAlignment="Center"
+		           Fill="#303030" />
+
+		<Grid Grid.Row="1"
+		      Grid.Column="3"
+		      Width="400"
+		      Height="400"
+		      HorizontalAlignment="Center"
+		      VerticalAlignment="Center"
+		      Background="White">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="7*" />
+				<RowDefinition Height="3*" />
+			</Grid.RowDefinitions>
+
+			<Image Grid.Row="0"
+			       Width="180"
+			       Height="180"
+			       HorizontalAlignment="Center"
+			       VerticalAlignment="Center"
+			       Source="/Assets/traffic-light.png" />
+
+			<TextBlock Grid.Row="1"
+			           HorizontalAlignment="Center"
+			           VerticalAlignment="Top"
+			           FontSize="25"
+			           TextAlignment="Center"
+			           TextWrapping="Wrap">
+				Seleccione médico y paciente<LineBreak />
+				en el formulario de la izquierda</TextBlock>
+		</Grid>
+
+		<Rectangle Grid.Row="1"
+		           Grid.Column="3"
+		           Fill="White"
+		           Visibility="{Binding AppointmentFormVisibility}" />
+
+		<Grid Grid.Row="1"
+		      Grid.Column="3"
+		      Margin="10"
+		      Visibility="{Binding AppointmentFormVisibility}">
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="40" />
+				<RowDefinition Height="10" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="10" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+
+			<Label Grid.Row="0"
+			       Content="Datos de la consulta médica"
+			       Foreground="RoyalBlue"
+			       Style="{StaticResource FormLabelStyle}" />
+
+			<Button x:Name="ButtonSaveAppointment"
+			        Grid.Row="0"
+			        Grid.Column="2"
+			        Click="ButtonSaveAppointment_Click"
+			        Content="Guardar"
+			        IsEnabled="{Binding IsEditEnabled}"
+			        Style="{StaticResource SaveEditButtonStyle}" />
+
+			<Rectangle Grid.Row="1"
+			           Grid.Column="0"
+			           Grid.ColumnSpan="3"
+			           Height="5"
+			           VerticalAlignment="Center"
+			           Fill="LightGray" />
+
+			<StackPanel Grid.Row="2" Grid.Column="0">
+				<Label Content="Motivo de la consulta" Style="{StaticResource FormLabelStyle}" />
+
+				<TextBox x:Name="TextBoxReasonForConsultation"
+				         IsEnabled="{Binding IsEditEnabled}"
+				         Style="{StaticResource LargeFormTextBoxStyle}"
+				         Text="{Binding Appointment.ReasonForConsultation, Mode=TwoWay}" />
+
+				<Label Content="Exámenes"
+				       Foreground="RoyalBlue"
+				       Style="{StaticResource FormLabelStyle}" />
+
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="40" />
+						<RowDefinition Height="40" />
+						<RowDefinition Height="40" />
+						<RowDefinition Height="40" />
+						<RowDefinition Height="10" />
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="3*" />
+						<ColumnDefinition Width="7*" />
+					</Grid.ColumnDefinitions>
+
+					<Label Grid.Row="0"
+					       Grid.Column="0"
+					       Content="Nombre"
+					       Style="{StaticResource FormLabelStyle}" />
+
+					<TextBox x:Name="TextBoxTestName"
+					         Grid.Row="0"
+					         Grid.Column="1"
+					         Width="250"
+					         IsEnabled="{Binding IsEditEnabled}"
+					         Style="{StaticResource FormTextBoxStyle}" />
+
+					<Label Grid.Row="1"
+					       Grid.Column="0"
+					       Content="Resultado"
+					       Style="{StaticResource FormLabelStyle}" />
+
+					<TextBox x:Name="TextBoxTestResult"
+					         Grid.Row="1"
+					         Grid.Column="1"
+					         Width="250"
+					         IsEnabled="{Binding IsEditEnabled}"
+					         Style="{StaticResource FormTextBoxStyle}" />
+
+					<Label Grid.Row="2"
+					       Grid.Column="0"
+					       Content="Observación"
+					       Style="{StaticResource FormLabelStyle}" />
+
+					<TextBox x:Name="TextBoxTestObservation"
+					         Grid.Row="2"
+					         Grid.Column="1"
+					         Width="250"
+					         IsEnabled="{Binding IsEditEnabled}"
+					         Style="{StaticResource FormTextBoxStyle}" />
+
+					<Button x:Name="ButtonAddTest"
+					        Grid.Row="3"
+					        Grid.Column="0"
+					        Grid.ColumnSpan="2"
+					        Width="110"
+					        HorizontalAlignment="Center"
+					        Click="ButtonAddTest_Click"
+					        Content="Agregar"
+					        IsEnabled="{Binding IsEditEnabled}"
+					        Style="{StaticResource SaveEditButtonStyle}" />
+				</Grid>
+
+				<ListView ItemsSource="{Binding Tests}">
+					<ListView.ItemContainerStyle>
+						<Style TargetType="ListViewItem">
+							<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+						</Style>
+					</ListView.ItemContainerStyle>
+
+					<ListView.View>
+						<GridView AllowsColumnReorder="False">
+							<GridViewColumn Width="140" Header="Nombre">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<Label Content="{Binding Name}" Style="{StaticResource ListLabelStyle}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+
+							<GridViewColumn Width="80" Header="Resultado">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<Label Content="{Binding REsult}" Style="{StaticResource ListLabelStyle}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+
+							<GridViewColumn Width="80" Header="Observación">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<Label Content="{Binding Observation}" Style="{StaticResource ListLabelStyle}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+
+							<GridViewColumn Width="100" Header="Eliminar">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<Button Click="ButtonDeleteTest_Click"
+										        Content="Eliminar"
+										        IsEnabled="{Binding IsEditEnabled}"
+										        Style="{StaticResource ListButtonStyle}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+						</GridView>
+					</ListView.View>
+				</ListView>
+			</StackPanel>
+
+			<StackPanel Grid.Row="2" Grid.Column="2">
+				<Label Content="Diagnóstico" Style="{StaticResource FormLabelStyle}" />
+
+				<TextBox x:Name="TextBoxDiagnostic"
+				         IsEnabled="{Binding IsEditEnabled}"
+				         Style="{StaticResource LargeFormTextBoxStyle}"
+				         Text="{Binding Appointment.Diagnostic, Mode=TwoWay}" />
+
+				<Label Content="Tratamiento" Style="{StaticResource FormLabelStyle}" />
+
+				<TextBox x:Name="TextBoxTreatment"
+				         IsEnabled="{Binding IsEditEnabled}"
+				         Style="{StaticResource LargeFormTextBoxStyle}"
+				         Text="{Binding Appointment.Treatment, Mode=TwoWay}" />
+
+				<Label Content="Observaciones" Style="{StaticResource FormLabelStyle}" />
+
+				<TextBox x:Name="TextBoxObservations"
+				         IsEnabled="{Binding IsEditEnabled}"
+				         Style="{StaticResource LargeFormTextBoxStyle}"
+				         Text="{Binding Appointment.Observations, Mode=TwoWay}" />
+			</StackPanel>
+		</Grid>
+	</Grid>
+</Page>

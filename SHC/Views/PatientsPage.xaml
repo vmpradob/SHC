@@ -1,0 +1,134 @@
+﻿<Page x:Class="SHC.Views.PatientsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:SHC.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Title="Pacientes"
+      d:DesignHeight="632"
+      d:DesignWidth="1360"
+      Loaded="Page_Loaded"
+      mc:Ignorable="d">
+
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40" />
+			<RowDefinition Height="10" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+
+		<Rectangle Grid.Row="0"
+		           Fill="Black"
+		           Opacity="0.5" />
+
+		<TextBlock Grid.Row="0"
+		           Margin="10,0,0,0"
+		           HorizontalAlignment="Left"
+		           VerticalAlignment="Center"
+		           FontSize="25"
+		           Foreground="White"
+		           Text="{Binding TotalPatients, StringFormat='Pacientes registrados: {0}'}" />
+
+		<Button x:Name="ButtonNewPatient"
+		        Grid.Row="0"
+		        HorizontalAlignment="Right"
+		        Background="LimeGreen"
+		        Click="ButtonNewPatient_Click"
+		        Style="{StaticResource BigButtonStyle}">
+			<Grid Width="250" Height="40">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="40" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<Image Grid.Column="0"
+				       Width="32"
+				       Height="32"
+				       HorizontalAlignment="Center"
+				       VerticalAlignment="Center"
+				       Source="/Assets/add-plus.png" />
+
+				<Label Grid.Column="1"
+				       Padding="0"
+				       HorizontalAlignment="Center"
+				       VerticalAlignment="Center"
+				       Content="Nuevo paciente"
+				       FontSize="25"
+				       Foreground="White" />
+			</Grid>
+		</Button>
+
+		<ListView x:Name="ListViewPatients"
+		          Grid.Row="2"
+		          ItemsSource="{Binding Patients}"
+		          SelectionChanged="ListViewPatients_SelectionChanged">
+			<ListView.View>
+				<GridView AllowsColumnReorder="False">
+					<GridViewColumn Width="180" Header="Nombres">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Name}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="180" Header="Apellidos">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Lastname}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="120" Header="Nacimiento">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding BirthDate}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="120" Header="Cédula">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding IdCard}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="100" Header="Es representante">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding IsARepresentative}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="120" Header="Teléfono">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding PhoneNumber}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="120" Header="Escolaridad">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding EducationLevel.Name}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="350" Header="Dirección">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Address}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+				</GridView>
+			</ListView.View>
+		</ListView>
+	</Grid>
+</Page>

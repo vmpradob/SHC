@@ -1,0 +1,126 @@
+﻿<Page x:Class="SHC.Views.AppointmentsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:SHC.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Title="Citas"
+      d:DesignHeight="632"
+      d:DesignWidth="1360"
+      Loaded="Page_Loaded"
+      mc:Ignorable="d">
+
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40" />
+			<RowDefinition Height="10" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+
+		<Rectangle Grid.Row="0"
+		           Fill="Black"
+		           Opacity="0.5" />
+
+		<TextBlock Grid.Row="0"
+		           Margin="10,0,0,0"
+		           HorizontalAlignment="Left"
+		           VerticalAlignment="Center"
+		           FontSize="25"
+		           Foreground="White"
+		           Text="{Binding TotalAppointments, StringFormat='Citas registradas: {0}'}" />
+
+		<Button x:Name="ButtonNewAppointment"
+		        Grid.Row="0"
+		        HorizontalAlignment="Right"
+		        Background="LimeGreen"
+		        Click="ButtonNewAppointment_Click"
+		        Style="{StaticResource BigButtonStyle}">
+			<Grid Width="250" Height="40">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="40" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<Image Grid.Column="0"
+				       Width="32"
+				       Height="32"
+				       HorizontalAlignment="Center"
+				       VerticalAlignment="Center"
+				       Source="/Assets/add-plus.png" />
+
+				<Label Grid.Column="1"
+				       Padding="0"
+				       HorizontalAlignment="Center"
+				       VerticalAlignment="Center"
+				       Content="Nueva cita"
+				       FontSize="25"
+				       Foreground="White" />
+			</Grid>
+		</Button>
+
+		<ListView x:Name="ListViewAppointments"
+		          Grid.Row="2"
+		          ItemsSource="{Binding Appointments}"
+		          SelectionChanged="ListViewAppointments_SelectionChanged">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Width="150" Header="Fecha">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Date}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="200" Header="Paciente">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Patient}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="200" Header="Médico">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Doctor}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="200" Header="Razón de consulta">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding ReasonForConsultation}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="200" Header="Diagnóstico">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Diagnostic}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="200" Header="Tratamiento">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Treatment}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="200" Header="Observaciones">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Observations}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+				</GridView>
+			</ListView.View>
+		</ListView>
+	</Grid>
+</Page>

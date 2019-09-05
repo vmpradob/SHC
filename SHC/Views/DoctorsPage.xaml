@@ -1,0 +1,110 @@
+﻿<Page x:Class="SHC.Views.DoctorsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:SHC.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Title="Médicos"
+      d:DesignHeight="632"
+      d:DesignWidth="1360"
+      Loaded="Page_Loaded"
+      mc:Ignorable="d">
+
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40" />
+			<RowDefinition Height="10" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+
+		<Rectangle Grid.Row="0"
+		           Fill="Black"
+		           Opacity="0.5" />
+
+		<TextBlock Grid.Row="0"
+		           Margin="10,0,0,0"
+		           HorizontalAlignment="Left"
+		           VerticalAlignment="Center"
+		           FontSize="25"
+		           Foreground="White"
+		           Text="{Binding TotalDoctors, StringFormat='Médicos registrados: {0}'}" />
+
+		<Button x:Name="ButtonNewDoctor"
+		        Grid.Row="0"
+		        HorizontalAlignment="Right"
+		        Background="LimeGreen"
+		        Click="ButtonNewDoctor_Click"
+		        Style="{StaticResource BigButtonStyle}">
+			<Grid Width="250" Height="40">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="40" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<Image Grid.Column="0"
+				       Width="32"
+				       Height="32"
+				       HorizontalAlignment="Center"
+				       VerticalAlignment="Center"
+				       Source="/Assets/add-plus.png" />
+
+				<Label Grid.Column="1"
+				       Padding="0"
+				       HorizontalAlignment="Center"
+				       VerticalAlignment="Center"
+				       Content="Nuevo médico"
+				       FontSize="25"
+				       Foreground="White" />
+			</Grid>
+		</Button>
+
+		<ListView x:Name="ListViewDoctors"
+		          Grid.Row="2"
+		          ItemsSource="{Binding Doctors}"
+		          SelectionChanged="ListViewDoctors_SelectionChanged">
+			<ListView.View>
+				<GridView AllowsColumnReorder="False">
+					<GridViewColumn Width="200" Header="Nombres">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Name}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="200" Header="Apellidos">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Lastname}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="150" Header="Cédula">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding IdCard}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="150" Header="Teléfono">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding PhoneNumber}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+
+					<GridViewColumn Width="200" Header="Especialidad">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Label Content="{Binding Specialty.Name}" Style="{StaticResource ListLabelStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+				</GridView>
+			</ListView.View>
+		</ListView>
+	</Grid>
+</Page>
