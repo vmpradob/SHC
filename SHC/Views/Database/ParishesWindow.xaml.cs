@@ -39,7 +39,27 @@ namespace SHC.Views.Database
 			};
 
 			App.DbContext.Parishes.Add(parish);
+			Community community = new Community()
+			{
+				Name = name,
+				Parish = parish
+			};
 
+			App.DbContext.Communities.Add(community);			
+			Sector sector = new Sector()
+			{
+				Name = ' ',
+				Community = community
+			};
+
+			App.DbContext.Sectors.Add(sector);
+
+			Street street = new Street()
+			{
+				Name = ' ',
+				Sector = sector
+			};
+			
 			try
 			{
 				App.DbContext.SaveChanges();

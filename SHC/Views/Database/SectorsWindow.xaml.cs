@@ -48,7 +48,15 @@ namespace SHC.Views.Database
 				Community = (Community)ComboBoxCommunities.SelectedItem
 			};
 
+			Street street = new Street()
+			{
+				Name = ' ',
+				Sector = sector
+			};
+			
 			App.DbContext.Sectors.Add(sector);
+
+			App.DbContext.Streets.Add(street);
 
 			try
 			{
